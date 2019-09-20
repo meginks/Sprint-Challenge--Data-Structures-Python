@@ -43,7 +43,6 @@ class LinkedList:
     return False
 
   def reverse_list(self):
-    # TO BE COMPLETED
     previous_item = None #create placeholder for previous item
     current_item = self.head #set current item to self.head 
     while(current_item is not None): #when we have an item at the current_item run code on lines 50-53
