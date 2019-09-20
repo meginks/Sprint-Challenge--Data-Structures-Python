@@ -13,16 +13,18 @@ class RingBuffer:
     self.storage = [None]*capacity
 
   def append(self, item): # we'd pass in an instance of the Item class here -- , likely item.data here 
-    if self.atCapacity() is False: #NOT AT CAPACITY 
-      if self.isEmpty() is True: #EMPTY
-        self.storage.append(item) #ADD ITEM TO STORAGE
-      elif self.isEmpty() is False: #NOT EMPTY 
-        self.storage.append(item)
-        self.storage.remove(self.storage[self.current]) 
-    elif self.atCapacity() is True: 
-      if self.isEmpty() is False:
-        self.storage.append(item)   
-        self.storage.remove(self.storage[self.current])  
+   
+      self.storage[self.current] = item
+      self.current += 1
+      if self.current == self.capacity: #NOT AT CAPACITY  #EMPTY
+        self.current = 0
+      
+        # self.storage.insert(-1, item)   
+        # self.storage.remove(self.storage[self.current])
+
+        # self.storage.append(item)
+        # self.current += 1 #ADD ITEM TO STORAGE
+
 
   def get(self): 
     holding_cell = [] 
@@ -43,7 +45,7 @@ class RingBuffer:
 
   def atCapacity(self): 
     """returns true if buffer is at capacity""" 
-    if self.storage[self.current] == self.storage[-1]:
+    if self.current == self.capacity:
       return False 
     else: 
       return True 
@@ -61,3 +63,6 @@ print("AFTER C", buffer)
 buffer.append('d')
 print("AFTER D", buffer) 
 print("buffer get", buffer.get())
+
+for item in buffer.storage:
+   print('item', item)
