@@ -14,21 +14,24 @@ class RingBuffer:
 
   def append(self, item): # we'd pass in an instance of the Item class here -- , likely item.data here 
     if self.atCapacity() is False: #NOT AT CAPACITY 
-      print('at capacity is false is working!')
       if self.isEmpty() is True: #EMPTY
-        print('is empty is true is working!')
-        self.storage.insert(self.current, item) #ADD ITEM TO STORAGE
+        self.storage.append(item) #ADD ITEM TO STORAGE
       elif self.isEmpty() is False: #NOT EMPTY 
-        print('is empty is false is working!')
-        self.storage[self.current+1] = self.storage[self.current] #MOVE ITEM AT CURRENT INDEX TO NEXT ONE
-        self.storage[self.current] = item #REASSIGN CURRENT INDEX OF STORAGE TO THE NEW ITEM 
+        self.storage.append(item)
+        self.storage.remove(self.storage[self.current]) 
     elif self.atCapacity() is True: 
-      print('at capacity is true is working!')
       if self.isEmpty() is False:
-        self.storage[-1] = item       
+        self.storage.append(item)   
+        self.storage.remove(self.storage[self.current])  
 
-  def get(self):
-    return self.storage
+  def get(self): 
+    holding_cell = [] 
+    for i in range(0, len(self.storage)): 
+      if self.storage[i] == None: 
+        pass 
+      else: 
+        holding_cell.append(self.storage[i])
+    return holding_cell
       
 
   def isEmpty(self):
@@ -57,3 +60,4 @@ buffer.append('c')
 print("AFTER C", buffer) 
 buffer.append('d')
 print("AFTER D", buffer) 
+print("buffer get", buffer.get())
