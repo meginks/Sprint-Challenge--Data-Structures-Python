@@ -43,5 +43,12 @@ class LinkedList:
     return False
 
   def reverse_list(self):
-    # TO BE COMPLETED
-    pass
+    previous_item = None #create placeholder for previous item
+    current_item = self.head #set current item to self.head 
+    while(current_item is not None): #when we have an item at the current_item run code on lines 50-53
+      next_item = current_item.next_node #create placeholder called next_item and set it to the next_node on current_item
+      current_item.next_node = previous_item #set the next node on the current item to the item in our previous_item placeholder (first time it will be none)
+      previous_item = current_item #set previous item to current item
+      current_item = next_item #set current item to next item 
+    self.head = previous_item #when we get to the end of the list, set the self.head to the previous_item, effectively reversing the list
+
